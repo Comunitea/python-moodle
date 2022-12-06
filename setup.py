@@ -16,7 +16,7 @@ setup(
     author='Zikzakmedia SL',
     author_email='zikzak@zikzakmedia.com',
     description='Moodle web services connection library',
-    long_description=(read('README') + '\n\n' + read('CHANGES')),
+    long_description=(read('README')),
     packages=['moodle'],
     zip_safe=False,
     platforms='any',

@@ -1,0 +1,5 @@
+build
+dist
+moodle.egg-info
+*~
+*.pyc

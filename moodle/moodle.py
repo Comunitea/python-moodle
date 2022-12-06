@@ -1,8 +1,7 @@
-# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    Moodle Webservice
-#    Copyright (c) 2011 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
+#    Copyright (c) 2011 Zikzakmedia S.L. (http://zikzakmedia.com)
 #                       Raimon Esteve <resteve@zikzakmedia.com>
 #                       Jesus Martín <jmartin@zikzakmedia.com>
 #    $Id$
@@ -22,8 +21,9 @@
 #
 ##############################################################################
 
+
 class MDL:
-    """ 
+    """
     Main class to connect Moodle webservice
     More information about Webservice:
         http://docs.moodle.org/20/en/Web_Services_API
@@ -52,17 +52,14 @@ class MDL:
         if server['uri'][-1] == '/':
             server['uri'] = server['uri'][:-1]
 
-        url = '%s/webservice/%s/server.php' % (server['uri'], server['protocol'])
-        data = 'wstoken=%s&wsfunction=%s' % (server['token'], function)
+        url = '%s/webservice/%s/server.php?wstoken=%s&wsfunction=%s' % (
+            server['uri'], server['protocol'], server['token'], function)
 
-        import urllib2
-        from xml.dom.minidom import parse, parseString
-        request = urllib2.Request(url, data)
-        f = urllib2.urlopen(request)
+        from urllib.request import urlopen
+        f = urlopen(url)
         result = f.read()
         f.close()
         return result
-
 
     def rest_protocol(self, server, params, function=None, key_word=None):
         """
@@ -85,7 +82,6 @@ class MDL:
 
         return self.conn_rest(server, function)
 
-
     def conn_xmlrpc(self, server, service=None, params=None):
         """
         Connection to Moodle with XML-RPC Webservice
@@ -98,14 +94,14 @@ class MDL:
         if 'uri' not in server or 'token' not in server:
             return False
 
-        import xmlrpclib
+        from xmlrpc.client import ServerProxy
 
         if server['uri'][-1] == '/':
             server['uri'] = server['uri'][:-1]
 
-        url = '%s/webservice/%s/server.php?wstoken=%s' % (server['uri'], server['protocol'], server['token'])
-        return xmlrpclib.ServerProxy(url)
-
+        url = '%s/webservice/%s/server.php?wstoken=%s' % (
+            server['uri'], server['protocol'], server['token'])
+        return ServerProxy(url)
 
     def xmlrpc_protocol(self, server, params, function=None, key_word=None):
         """
@@ -114,22 +110,22 @@ class MDL:
 
         def moodle_course_get_courses(params):
             return proxy.moodle_course_get_courses()
-        
+
         def moodle_course_create_courses(params):
             return proxy.moodle_course_create_courses(params)
-            
+
         def moodle_user_get_users_by_id(params):
             return proxy.moodle_user_get_users_by_id(params)
 
         def moodle_user_create_users(params):
             return proxy.moodle_user_create_users(params)
-            
+
         def moodle_user_update_users(params):
             return proxy.moodle_user_update_users(params)
-            
+
         def moodle_enrol_manual_enrol_users(params):
             return proxy.moodle_enrol_manual_enrol_users(params)
-            
+
         def not_implemented_yet(params):
             return False
 
@@ -148,7 +144,6 @@ class MDL:
             function = "not_implemented_yet"
         return select_method[function](params)
 
-
     def get_courses(self, server):
         """
         Get all courses
@@ -164,15 +159,13 @@ class MDL:
         """
         if 'protocol' not in server:
             return False
-        params=''
+        params = ''
         function = 'moodle_course_get_courses'
-        key_word = ''
         protocol = {
             "xmlrpc": self.xmlrpc_protocol,
             "rest": self.rest_protocol,
         }
         return protocol[server['protocol']](server, params, function)
-
 
     def create_courses(self, server, params):
         """
@@ -202,7 +195,6 @@ class MDL:
         }
         return protocol[server['protocol']](server, params, function, key_word)
 
-
     def get_users(self, server, params):
         """
         Get users by id
@@ -231,7 +223,6 @@ class MDL:
             "rest": self.rest_protocol,
         }
         return protocol[server['protocol']](server, params, function, key_word)
-
 
     def create_users(self, server, params):
         """
@@ -263,7 +254,6 @@ class MDL:
         }
         return protocol[server['protocol']](server, params, function, key_word)
 
-
     def update_users(self, server, params):
         """
         Create new user
@@ -290,7 +280,6 @@ class MDL:
             "rest": self.rest_protocol,
         }
         return protocol[server['protocol']](server, params, function, key_word)
-
 
     def enrol_users(self, server, params):
         """
