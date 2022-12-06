@@ -108,35 +108,35 @@ class MDL:
         Select the correct function to call
         """
 
-        def moodle_course_get_courses(params):
-            return proxy.moodle_course_get_courses()
+        def core_course_get_courses(params):
+            return proxy.core_course_get_courses()
 
-        def moodle_course_create_courses(params):
-            return proxy.moodle_course_create_courses(params)
+        def core_course_create_courses(params):
+            return proxy.core_course_create_courses(params)
 
-        def moodle_user_get_users_by_id(params):
-            return proxy.moodle_user_get_users_by_id(params)
+        def core_user_get_users_by_id(params):
+            return proxy.core_user_get_users_by_id(params)
 
-        def moodle_user_create_users(params):
-            return proxy.moodle_user_create_users(params)
+        def core_user_create_users(params):
+            return proxy.core_user_create_users(params)
 
-        def moodle_user_update_users(params):
-            return proxy.moodle_user_update_users(params)
+        def core_user_update_users(params):
+            return proxy.core_user_update_users(params)
 
-        def moodle_enrol_manual_enrol_users(params):
-            return proxy.moodle_enrol_manual_enrol_users(params)
+        def enrol_manual_enrol_users(params):
+            return proxy.enrol_manual_enrol_users(params)
 
         def not_implemented_yet(params):
             return False
 
         proxy = self.conn_xmlrpc(server)
         select_method = {
-            "moodle_course_get_courses": moodle_course_get_courses,
-            "moodle_course_create_courses": moodle_course_create_courses,
-            "moodle_user_get_users_by_id": moodle_user_get_users_by_id,
-            "moodle_user_create_users": moodle_user_create_users,
-            "moodle_user_update_users": moodle_user_update_users,
-            "moodle_enrol_manual_enrol_users": moodle_enrol_manual_enrol_users,
+            "core_course_get_courses": core_course_get_courses,
+            "core_course_create_courses": core_course_create_courses,
+            "core_user_get_users_by_id": core_user_get_users_by_id,
+            "core_user_create_users": core_user_create_users,
+            "core_user_update_users": core_user_update_users,
+            "enrol_manual_enrol_users": enrol_manual_enrol_users,
             "not_implemented_yet": not_implemented_yet,
         }
 
@@ -160,7 +160,7 @@ class MDL:
         if 'protocol' not in server:
             return False
         params = ''
-        function = 'moodle_course_get_courses'
+        function = 'core_course_get_courses'
         protocol = {
             "xmlrpc": self.xmlrpc_protocol,
             "rest": self.rest_protocol,
@@ -187,7 +187,7 @@ class MDL:
         """
         if 'protocol' not in server:
             return False
-        function = 'moodle_course_create_courses'
+        function = 'core_course_create_courses'
         key_word = 'courses'
         protocol = {
             "xmlrpc": self.xmlrpc_protocol,
@@ -216,7 +216,7 @@ class MDL:
         """
         if 'protocol' not in server:
             return False
-        function = 'moodle_user_get_users_by_id'
+        function = 'core_user_get_users_by_id'
         key_word = 'userids'
         protocol = {
             "xmlrpc": self.xmlrpc_protocol,
@@ -246,7 +246,7 @@ class MDL:
         """
         if 'protocol' not in server:
             return False
-        function = 'moodle_user_create_users'
+        function = 'core_user_create_users'
         key_word = 'users'
         protocol = {
             "xmlrpc": self.xmlrpc_protocol,
@@ -273,7 +273,7 @@ class MDL:
         """
         if 'protocol' not in server:
             return False
-        function = 'moodle_user_update_users'
+        function = 'core_user_update_users'
         key_word = 'users'
         protocol = {
             "xmlrpc": self.xmlrpc_protocol,
@@ -301,7 +301,7 @@ class MDL:
         """
         if 'protocol' not in server:
             return False
-        function = 'moodle_enrol_manual_enrol_users'
+        function = 'enrol_manual_enrol_users'
         key_word = 'enrolments'
         protocol = {
             "xmlrpc": self.xmlrpc_protocol,
